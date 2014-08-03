@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title></title>
+  </head>
+  <body>
+    <div>Click to Upload Image</div>
+    <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+    <script src="https://rawgit.com/firstandthird/image-uploader/master/dist/image-uploader.full.js
+      "></script>
+    <script>
+      $('div').imageUploader({
+        action: '/upload',
+        //action: '/upload/image/500/500',
+        postKey: 'file'
+      });
+    </script>
+  </body>
+</html>
