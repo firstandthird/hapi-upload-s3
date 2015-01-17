@@ -9,14 +9,14 @@
     "url": "https://github.com/firstandthird/hapi-upload-s3.git"
   },
   "devDependencies": {
-    "hapi": "^6.2.2"
+    "hapi": "^8.1.0"
   },
   "dependencies": {
+    "aws-sdk": "^2.1.6",
     "datefmt": "^0.4.0",
-    "uuid": "^1.4.1",
-    "s3-upload-stream": "^0.4.0",
-    "joi": "^4.6.2",
-    "gm": "^1.16.0",
-    "aws-sdk": "^2.0.11"
+    "gm": "^1.17.0",
+    "joi": "^5.1.0",
+    "s3-upload-stream": "^1.0.7",
+    "uuid": "^2.0.1"
   }
 }
