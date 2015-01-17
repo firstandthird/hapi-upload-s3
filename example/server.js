@@ -13,7 +13,8 @@ server.register([
       s3SecretAccessKey: '',
       s3Region: 'us-east-1',
       s3Bucket: '',
-      contentTypes: ['image/jpeg']
+      contentTypes: ['image/jpeg'],
+      maxBytes: 30000
     }
   }
 ], function(err) {
