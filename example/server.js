@@ -12,7 +12,8 @@ server.register([
       s3AccessKey: '',
       s3SecretAccessKey: '',
       s3Region: 'us-east-1',
-      s3Bucket: ''
+      s3Bucket: '',
+      contentTypes: ['image/jpeg']
     }
   }
 ], function(err) {
