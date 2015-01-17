@@ -1,11 +1,13 @@
 var Hapi = require('hapi');
 var port = process.env.PORT || 8080;
-var server = new Hapi.Server(port, '0.0.0.0');
+var server = new Hapi.Server();
 var fs = require('fs');
 
-server.pack.register([
+server.connection({ port: port });
+
+server.register([
   {
-    plugin: require('../'),
+    register: require('../'),
     options: {
       s3AccessKey: '',
       s3SecretAccessKey: '',
