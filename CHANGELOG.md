@@ -1,4 +1,14 @@
 
+0.3.0 / 2015-01-19
+==================
+
+  * Merge pull request #5 from firstandthird/feature/update
+  * Added option for maxBytes
+  * Use timestamped directory and keep original filename.
+  * Fixed errors being thrown with Hapi v8 and option to limit filetypes.
+  * Updated dependencies
+  * Bump deps.
+
 0.2.0 / 2014-09-20 
 ==================
 
