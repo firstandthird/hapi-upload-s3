@@ -1,4 +1,10 @@
 
+0.4.1 / 2015-02-18
+==================
+
+  * Merge pull request #8 from firstandthird/feature/add-contenttype
+  * Added contenttype to cropped images.
+
 0.4.0 / 2015-02-05
 ==================
 
