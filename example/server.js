@@ -1,23 +1,19 @@
-var Hapi = require('hapi');
-var port = process.env.PORT || 8080;
-var server = new Hapi.Server();
-var fs = require('fs');
-
-server.connection({ port: port });
+const Hapi = require('hapi');
+const port = process.env.PORT || 8080;
+const server = new Hapi.Server();
+const fs = require('fs');
+const path = require('path');
+server.connection({ port });
 
 server.register([
   {
     register: require('../'),
     options: {
-      s3AccessKey: '',
-      s3SecretAccessKey: '',
-      s3Region: 'us-east-1',
-      s3Bucket: '',
-      contentTypes: ['image/jpeg'],
+      imagemagick: true,
       maxBytes: 30000
     }
   }
-], function(err) {
+], (err) => {
   if (err) {
     throw err;
   }
@@ -26,8 +22,11 @@ server.register([
     {
       path: '/',
       method: 'GET',
-      handler: function(request, reply) {
-        fs.readFile(__dirname + '/index.html', 'utf8', function(err, html) {
+      handler: (request, reply) => {
+        fs.readFile(path.join(__dirname, 'index.html'), 'utf8', (fileErr, html) => {
+          if (fileErr) {
+            return reply(err);
+          }
           reply(html);
         });
       }
@@ -42,7 +41,7 @@ server.register([
       }
     }
   ]);
-  server.start(function() {
+  server.start(() => {
     console.log('Hapi server started @', server.info.uri);
   });
 });
