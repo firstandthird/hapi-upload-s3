@@ -10,9 +10,6 @@ server.register([
     register: require('../'),
     options: {
       imagemagick: true,
-      contentTypes: ['image/jpeg'],
-      bucket: process.env.AWS_BUCKET,
-      profile: process.env.AWS_PROFILE,
       maxBytes: 30000
     }
   }
