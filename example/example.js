@@ -24,9 +24,9 @@ server.register([
   server.methods.uploadToS3(stream, {
     bucket: process.env.AWS_BUCKET,
     profile: process.env.AWS_PROFILE
-  }, (err, response) => {
-    if (err) {
-      console.log(err)
+  }, (uploadErr, response) => {
+    if (uploadErr) {
+      console.log(uploadErr);
     }
     console.log(response);
   });
