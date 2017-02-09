@@ -9,8 +9,9 @@ server.register([
   {
     register: require('../'),
     options: {
-      imagemagick: true,
-      maxBytes: 30000
+      maxBytes: 30000,
+      profile: process.env.AWS_PROFILE,
+      bucket: process.env.AWS_BUCKET
     }
   }
 ], (err) => {
