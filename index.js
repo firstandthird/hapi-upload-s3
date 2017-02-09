@@ -6,8 +6,8 @@ const aug = require('aug');
 const defaultOptions = {
   endpoint: '/upload', // endpoint where images should be POSTed
   contentTypes: [], // list of mime-types the endpoint accepts
-  bucket: process.env.AWS_BUCKET,
-  profile: process.env.AWS_PROFILE,
+  bucket: false,
+  profile: false,
   quality: 100, // images aren't compressed by default
   maxUploadSize: 1 // in mb
 };
