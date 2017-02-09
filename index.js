@@ -59,8 +59,14 @@ module.exports = (server, options, next) => {
     }
   });
   // also expose a plugin method on hapi server:
-  server.method('uploadToS3', (file, callback) => {
-    s3put(file, options, callback);
+  server.decorate('server', 'uploadToS3', (file, localOptions, callback) => {
+    if (typeof localOptions === 'function') {
+      callback = localOptions;
+      localOptions = {};
+    }
+    localOptions = aug({}, options, localOptions);
+
+    s3put(file, localOptions, callback);
   });
   next();
 };
