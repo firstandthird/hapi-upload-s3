@@ -1,7 +1,7 @@
 const Boom = require('boom');
 const Joi = require('joi');
 const s3put = require('s3put');
-const defaults = require('lodash.defaults');
+const aug = require('aug');
 
 const defaultOptions = {
   endpoint: '/upload', // endpoint where images should be POSTed
@@ -13,7 +13,8 @@ const defaultOptions = {
 };
 
 module.exports = (server, options, next) => {
-  options = defaults(options, defaultOptions);
+  options = aug({}, defaultOptions, options);
+
   if (!options.profile) {
     if (!options.access_key && !options.secret_key) {
       return next('You must specify either a profile or an access/secret key to use AWS.');
