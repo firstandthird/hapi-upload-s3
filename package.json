@@ -12,13 +12,13 @@
     "eslint": "^3.9.1",
     "eslint-config-firstandthird": "^3.0.2",
     "eslint-plugin-import": "^2.1.0",
-    "hapi": "^8.1.0"
+    "hapi": "^16.0.2"
   },
   "dependencies": {
-    "boom": "^2.6.1",
-    "joi": "^5.1.0",
+    "boom": "^4.2.0",
+    "joi": "^10.1.0",
     "lodash.defaults": "^4.2.0",
-    "s3put": "1.1.0",
-    "slug": "^0.8.0"
+    "s3put": "2.0.0",
+    "slug": "^0.9.1"
   }
 }
