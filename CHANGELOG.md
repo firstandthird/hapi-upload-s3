@@ -1,4 +1,25 @@
 
+2.0.0 / 2017-02-08
+==================
+
+  * updated example
+  * use decorate instead of method
+  * removed query params
+  * default bucket and profile to false
+  * use aug
+  * renamed index
+  * fix
+  * tweaks
+  * remove unused slug lib
+  * return reply(err)
+  * update deps
+  * pin deps
+  * chore(package): update dependencies
+  * use plugin options
+  * add acl and host options
+  * lint fix
+  * exposes 'uploadtoS3' on server, adds example.js
+
 1.0.0 / 2016-11-22
 ==================
 
