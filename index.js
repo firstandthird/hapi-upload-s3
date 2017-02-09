@@ -34,14 +34,6 @@ module.exports = (server, options, next) => {
       validate: {
         payload: {
           file: Joi.any().required()
-        },
-        query: {
-          quality: Joi.number(),
-          x: Joi.number(),
-          y: Joi.number(),
-          height: Joi.number(),
-          width: Joi.number(),
-          gravity: Joi.string()
         }
       },
     },
@@ -57,22 +49,6 @@ module.exports = (server, options, next) => {
         return reply(Boom.unsupportedMediaType('content-type not allowed'));
       }
       file.path = file.hapi.filename;
-      // pass any crop/compress options:
-      const query = request.query;
-      options.quality = query.quality ? query.quality : options.quality;
-      if (query.width && query.height) {
-        options.size = [query.width, query.height];
-      }
-      if (query.x && query.y) {
-        options.position = [query.x, query.y];
-      }
-      options.gravity = query.gravity;
-      if (query.acl) {
-        options.acl = query.acl;
-      }
-      if (query.host) {
-        options.host = query.host;
-      }
       // call s3put to handle the upload:
       s3put(file, options, (err, response) => {
         if (err) {
