@@ -3,7 +3,7 @@
   "description": "Upload files and images directly to s3",
   "homepage": "https://github.com/firstandthird/hapi-upload-s3",
   "author": "First+Third",
-  "version": "2.1.0",
+  "version": "2.2.0",
   "repository": {
     "type": "git",
     "url": "https://github.com/firstandthird/hapi-upload-s3.git"
