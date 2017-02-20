@@ -9,7 +9,7 @@
     "url": "https://github.com/firstandthird/hapi-upload-s3.git"
   },
   "devDependencies": {
-    "eslint": "3.15.0",
+    "eslint": "3.16.0",
     "eslint-config-firstandthird": "3.2.0",
     "eslint-plugin-import": "2.2.0",
     "hapi": "16.1.0"
