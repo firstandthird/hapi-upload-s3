@@ -1,48 +1,30 @@
 const Hapi = require('hapi');
 const port = process.env.PORT || 8080;
-const server = new Hapi.Server();
 const fs = require('fs');
 const path = require('path');
-server.connection({ port });
 
-server.register([
-  {
-    register: require('../'),
-    options: {
-      maxBytes: 30000,
-      profile: process.env.AWS_PROFILE,
-      bucket: process.env.AWS_BUCKET
-    }
-  }
-], (err) => {
-  if (err) {
-    throw err;
-  }
+const server = new Hapi.Server({ port });
 
-  server.route([
+const f = async () => {
+  await server.register([
     {
-      path: '/',
-      method: 'GET',
-      handler: (request, reply) => {
-        fs.readFile(path.join(__dirname, 'index.html'), 'utf8', (fileErr, html) => {
-          if (fileErr) {
-            return reply(err);
-          }
-          reply(html);
-        });
-      }
-    },
-    {
-      path: '/{param*}',
-      method: 'GET',
-      handler: {
-        directory: {
-          path: '.'
-        }
+      plugin: require('../'),
+      options: {
+        maxBytes: 30000,
+        profile: process.env.AWS_PROFILE,
+        bucket: process.env.AWS_BUCKET
       }
     }
   ]);
-  server.start(() => {
-    console.log('Hapi server started @', server.info.uri);
+  server.route({
+    path: '/',
+    method: 'GET',
+    handler: (request, h) => {
+      return fs.readFileSync(path.join(__dirname, 'index.html'), 'utf8');
+    }
   });
-});
+  await server.start();
+  console.log('Hapi server started @', server.info.uri);
+};
+
+f();
