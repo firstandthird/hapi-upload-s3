@@ -12,16 +12,16 @@ const defaultOptions = {
   maxUploadSize: 1 // in mb
 };
 
-module.exports = (server, options, next) => {
+const register = async(server, options) => {
   options = aug({}, defaultOptions, options);
 
   if (!options.profile) {
     if (!options.access_key && !options.secret_key) {
-      return next('You must specify either a profile or an access/secret key to use AWS.');
+      throw new Error('You must specify either a profile or an access/secret key to use AWS.');
     }
   }
   if (!options.bucket) {
-    return next('You must specify a bucket name that you want to upload to.');
+    throw new Error('You must specify a bucket name that you want to upload to.');
   }
 
   // one route with query params for resize/crop
@@ -39,38 +39,34 @@ module.exports = (server, options, next) => {
     },
     path: options.endpoint,
     method: 'POST',
-    handler: (request, reply) => {
+    handler: async(request, h) => {
       // make sure payload is palatable to s3put:
       const file = request.payload.file;
       if (!file.hapi.filename) {
-        return reply(Boom.badData('must be a file'));
+        throw Boom.badData('must be a file');
       }
       if (options.contentTypes.length && options.contentTypes.indexOf(file.hapi.headers['content-type']) === -1) {
-        return reply(Boom.unsupportedMediaType('content-type not allowed'));
+        throw Boom.unsupportedMediaType('content-type not allowed');
       }
       file.path = file.hapi.filename;
       // call s3put to handle the upload:
-      s3put(file, options, (err, response) => {
-        if (err) {
-          return reply(err);
-        }
-        reply(null, response);
-      });
+      const response = await s3put(file, options);
+      return response;
     }
   });
   // also expose a plugin method on hapi server:
-  server.decorate('server', 'uploadToS3', (file, localOptions, callback) => {
-    if (typeof localOptions === 'function') {
-      callback = localOptions;
+  server.decorate('server', 'uploadToS3', (file, localOptions) => {
+    if (!localOptions) {
       localOptions = {};
     }
     localOptions = aug({}, options, localOptions);
 
-    s3put(file, localOptions, callback);
+    return s3put(file, localOptions);
   });
-  next();
 };
 
-module.exports.attributes = {
+exports.plugin = {
+  register,
+  once: true,
   pkg: require('./package.json')
 };
